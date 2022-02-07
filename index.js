@@ -56,29 +56,66 @@ console.log(
         }
     )
 );
-*/
+
 
 function obtainDirections(step) {
     return new Promise((resolvedCb, rejectedCb) => {
 
-        setTimeout(()=>{
+        setTimeout(() => {
             console.log(directions[step]);
-            if (!directions[step]) rejectedCb("Instructions not found.");
-            else resolvedCb();
-       }, 1 * 1000 
+            if (!directions[step]) rejectedCb(`Directions not found for step ${step}.`);
+            else resolvedCb(`Directions given for step ${step}.`);
+        }, 1 * 1000
         )
     });
 }
 
+console.log(obtainDirections(0))
+
+obtainDirections(0)
+    .then(() => obtainDirections(1))
+    .then(() => obtainDirections(100))
+    .catch((error) => console.log("There was an error: " + error))
+    .then(() => obtainDirections(2))
+    .then(() => obtainDirections(3))
+
+console.log(obtainDirections(0))
 
 
-    const magicButton = document.getElementById("magic-button");
-
+const magicButton = document.getElementById("magic-button");
 magicButton.onclick = () => {
-    return obtainDirections(0)
-    .then(()=>obtainDirections(1))
-    .then(()=>obtainDirections(2))
-    .then(()=>obtainDirections(3))
-    .then(()=>obtainDirections(100))
-    .catch((text)=>console.log("CATCH: " + text))
+return 
+}
+*/
+
+function onclickHandler(){
+    return new Promise(
+        (resolve, reject)=>{
+            const randomResult = Math.random() > 0.5
+            if(randomResult){
+                resolve(" You have another to do!")
+            }else{
+                reject("To-dos finished")
+            }
+        }
+    );
+}
+
+
+
+
+const magicButton = document.getElementById("magic-button");
+
+magicButton.onclick = ()=>{
+    onclickHandler()
+.then(
+    (newToDo)=>{
+        const todoList = document.getElementById("to-do-list")
+        todoList.innerHTML += `<div> ${newToDo}`
+    }
+)
+.catch((error)=>{
+    const todoList = document.getElementById("to-do-list")
+    todoList.innerHTML += `<div>${error}`;
+})
 }
