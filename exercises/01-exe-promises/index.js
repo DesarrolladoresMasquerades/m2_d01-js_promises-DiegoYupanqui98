@@ -33,8 +33,8 @@ console.log("Waiting for the fake server to reply...");
 // ----- You have to make it work as intended -----
 const serverResponse = new Promise(responseHandler);
 
-serverResponse.then((data) => updateDOMWithData(data))
-  .catch((error) => updateDOMWithError(error));
+serverResponse.then(updateDOMWithData)
+  .catch(updateDOMWithError);
 
 function updateDOMWithData(data) {
   const html = document.createElement("div")
@@ -86,6 +86,6 @@ function responseHandler(resolveCb, rejectCb) {
       else rejectCb(error);
     },
 
-    1000 + Math.random() * 1000 // This is a random waiting time between 1000 and 2000 ms
+    Math.random() * 500 // This is a random waiting time between 1000 and 2000 ms
   );
 }
