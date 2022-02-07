@@ -98,7 +98,16 @@ function onclickHandler(){
                 reject("To-dos finished")
             }
         }
-    );
+    ).then(
+        (newToDo)=>{
+            const todoList = document.getElementById("to-do-list")
+            todoList.innerHTML += `<div> ${newToDo}`
+        }
+    )
+    .catch((error)=>{
+        const todoList = document.getElementById("to-do-list")
+        todoList.innerHTML += `<div>${error}`;
+    })
 }
 
 
@@ -106,16 +115,4 @@ function onclickHandler(){
 
 const magicButton = document.getElementById("magic-button");
 
-magicButton.onclick = ()=>{
-    onclickHandler()
-.then(
-    (newToDo)=>{
-        const todoList = document.getElementById("to-do-list")
-        todoList.innerHTML += `<div> ${newToDo}`
-    }
-)
-.catch((error)=>{
-    const todoList = document.getElementById("to-do-list")
-    todoList.innerHTML += `<div>${error}`;
-})
-}
+magicButton.onclick = onclickHandler
